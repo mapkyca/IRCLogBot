@@ -15,7 +15,7 @@ import errno
 server = "irc.freenode.net"
 port = 6697
 channel = ""
-botnick = "mapkycalog"
+botnick = ""
 logdir = "logs"
 password = ""
 
@@ -138,6 +138,11 @@ def main():
             
     # Check channel is defined
     if len(channel) == 0:
+        usage()
+        sys.exit()
+        
+    # Check nick is defined
+    if len(botnick) == 0:
         usage()
         sys.exit()
 
