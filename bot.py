@@ -23,12 +23,26 @@ irc_C = None
 irc = None
 
 def logline(line, logdir):
+    
     filename = time.strftime("%Y-%m-%d") + ".md"
-
-    # Parse out string and format appropriately    
+    
+    line = line.lstrip(":")
+    splitline = line.split(":", 1)
+    
+    # Username
+    user = splitline[0]
+    user = user.split("!", 1)[0]
+    
+    # Get body of text
+    text = splitline[1];
+    text = text.strip(" \t\n\r");
+    
+    # Parse out string and format appropriately    (time, username, text)
+    newline = "* %s - __<%s>__: %s" % (time.strftime("%H:%M.%S (%Z)"), user, text)
     
     with open(logdir + "/" + filename, "a") as logfile:
-        logfile.write(line + "\n")
+        print "LOGGING: " + newline
+        logfile.write(newline + "\n")
         logfile.close()
         
 
@@ -70,7 +84,7 @@ def runbot(server, port, channel, botnick, logdir, password):
         time.sleep(1)
         	    
         try:
-            text=irc.recv(2040)
+            text=irc.recv(4096)
             print "[RECEIVED] " + text
         
             # Prevent Timeout
