@@ -38,7 +38,7 @@ def logline(line, logdir):
     text = text.strip(" \t\n\r");
     
     # Parse out string and format appropriately    (time, username, text)
-    newline = "* %s - __<%s>__: %s" % (time.strftime("%H:%M.%S (%Z)"), user, text)
+    newline = "* %s - __@%s__: %s" % (time.strftime("%H:%M.%S (%Z)"), user, text)
     
     with open(logdir + "/" + filename, "a") as logfile:
         print "LOGGING: " + newline
