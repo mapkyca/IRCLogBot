@@ -77,7 +77,7 @@ def runbot(server, port, channel, botnick, logdir, password):
     send("USER " + botnick + " " + botnick + " bla :" + botnick + "\r\n")
     send("NICK " + botnick + "\r\n")
     if len(password) > 0:
-        send("PRIVMSG nickserv :" + password + "\r\n")    #auth
+        send("PRIVMSG NickServ :IDENTIFY "+ botnick + " " + password + "\r\n")    #auth
     send("JOIN " + channel + "\r\n")
     
     while True:
@@ -110,7 +110,7 @@ def main():
     signal.signal(signal.SIGINT, sig_int_handler)
     
     try:
-		opts, args = getopt.getopt(sys.argv[1:], "s:p:c:n:d:h", ["help"])
+		opts, args = getopt.getopt(sys.argv[1:], "s:p:c:n:d:a:h", ["help"])
     except getopt.GetoptError, err:
 		print str(err)
 		usage()
