@@ -41,7 +41,7 @@ def logline(line, logdir):
     newline = "* %s - __[%s](https://github.com/%s)__: %s" % (time.strftime("%H:%M.%S (%Z)"), user, user, text)
     
     with open(logdir + "/" + filename, "a") as logfile:
-        print "LOGGING: " + newline
+        print "[LOGGING] " + newline
         logfile.write(newline + "\n")
         logfile.close()
         
@@ -84,17 +84,17 @@ def runbot(server, port, channel, botnick, logdir, password):
         time.sleep(1)
         	    
         try:
-            text=irc.recv(8192)
-            print "[RECEIVED] " + text
-        
-            # Prevent Timeout
-            if text.find('PING') != -1:
-                send('PONG ' + text.split() [1] + '\r\n')
-                
-            # Someone on IRC said something on the channel, so log it, and mayby parse it for meaning
-            if text.find('PRIVMSG '+ channel) != -1:
-                logline(text, logdir)
-        	    
+            for text in irc.makefile('r'):
+            
+                print "[RECEIVED] " + text.strip()
+            
+                # Prevent Timeout
+                if text.find('PING') != -1:
+                    send('PONG ' + text.split() [1] + '\r\n')
+                    
+                # Someone on IRC said something on the channel, so log it, and mayby parse it for meaning
+                if text.find('PRIVMSG '+ channel) != -1:
+                    logline(text, logdir)
         	    
         except Exception:
             continue
