@@ -84,7 +84,7 @@ def runbot(server, port, channel, botnick, logdir, password):
         time.sleep(1)
         	    
         try:
-            text=irc.recv(4096)
+            text=irc.recv(8192)
             print "[RECEIVED] " + text
         
             # Prevent Timeout
