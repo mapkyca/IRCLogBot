@@ -11,7 +11,7 @@ import time
 import getopt
 import os
 import errno
-from parsers import Basic
+import LogParsers.BasicParser
 
 server = "irc.freenode.net"
 port = 6697
@@ -20,7 +20,7 @@ botnick = ""
 logdir = "logs"
 password = ""
 
-parser = Basic()
+parser = LogParsers.BasicParser.BasicParser()
 
 irc_C = None
 irc = None
