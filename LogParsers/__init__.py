@@ -1,1 +1,1 @@
-__ALL__ = ['BasicParser']
+__ALL__ = ['BasicParser', 'KnownChatParser']
