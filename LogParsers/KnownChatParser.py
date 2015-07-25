@@ -8,12 +8,22 @@ Known Chat specific log line enhancements.
 """
 
 from BasicParser import BasicParser
+import re
 
 class KnownChatParser(BasicParser):    
     """ #Knownchat specific LogLine Parser"""
     
     def parse(self, line):
         
+        # Get the basic line
         line = super(KnownChatParser, self).parse(line)
+
+        ##        
+        # Now do some extra processing on it.
+        ##
+
+        # Tickets
+        
+        
         
         return line
