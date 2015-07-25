@@ -11,6 +11,7 @@ import time
 import getopt
 import os
 import errno
+from parsers import Basic
 
 server = "irc.freenode.net"
 port = 6697
@@ -19,27 +20,17 @@ botnick = ""
 logdir = "logs"
 password = ""
 
+parser = Basic()
+
 irc_C = None
 irc = None
 
 def logline(line, logdir):
+    global parser
     
     filename = time.strftime("%Y-%m-%d") + ".md"
     
-    # Remove beginning :
-    line = line.lstrip(":")
-    
-    # Username
-    user = line;
-    user = user.split("!", 1)[0]
-    
-    # Get body of text
-    text = line[line.find('PRIVMSG'):]
-    text = text[text.find(':')+1:]
-    text = text.strip(" \t\n\r");
-    
-    # Parse out string and format appropriately    (time, username, text)
-    newline = "* %s - __[%s](https://github.com/%s)__: %s" % (time.strftime("%H:%M.%S (%Z)"), user, user, text)
+    newline = parser.parse(line)
     
     with open(logdir + "/" + filename, "a") as logfile:
         print "[LOGGING] " + newline
