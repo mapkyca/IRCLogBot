@@ -11,7 +11,7 @@ Created on Sat Jul 25 12:37:09 2015
 
 import time
 
-class BasicParser:
+class BasicParser(object):
     """ Basic LogLine Parser"""
     
     def parse(self, line):
