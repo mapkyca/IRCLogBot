@@ -26,15 +26,16 @@ def logline(line, logdir):
     
     filename = time.strftime("%Y-%m-%d") + ".md"
     
+    # Remove beginning :
     line = line.lstrip(":")
-    splitline = line.split(":", 1)
     
     # Username
-    user = splitline[0]
+    user = line;
     user = user.split("!", 1)[0]
     
     # Get body of text
-    text = splitline[1];
+    text = line[line.find('PRIVMSG'):]
+    text = text[text.find(':')+1:]
     text = text.strip(" \t\n\r");
     
     # Parse out string and format appropriately    (time, username, text)
