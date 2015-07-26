@@ -13,6 +13,18 @@ import re
 class KnownChatParser(BasicParser):    
     """ #Knownchat specific LogLine Parser"""
     
+    def ticketCallback(self, match):
+        string = match.group(0)
+        project = 'idno/Known'
+        number = string[string.find('#')+1:]
+        
+        if string[0] != '#':
+            project = string[:string.find('#')]
+            
+        return "<a href=\"https://github.com/%s/issues/%s\">%s</a>" % (project, number, string)
+            
+            
+    
     def parse(self, line):
         
         # Get the basic line
@@ -23,6 +35,7 @@ class KnownChatParser(BasicParser):
         ##
 
         # Tickets
+        line = re.sub('([0-9a-zA-Z]+\/[0-9a-zA-Z]+)?#[0-9]+', self.ticketCallback, line)
         
         
         
