@@ -23,7 +23,13 @@ class KnownChatParser(BasicParser):
             
         return "<a href=\"https://github.com/%s/issues/%s\">%s</a>" % (project, number, string)
             
-            
+    def lokiUsers(self, match):
+        string = match.group(0)
+        
+        user = match.group(1)
+        user = user.strip(" @\t\n\r")
+        
+        return "[<a href=\"https://twitter.com/%s\">@%s</a>]" % (user, user)
     
     def parse(self, line):
         
@@ -36,6 +42,9 @@ class KnownChatParser(BasicParser):
 
         # Tickets
         line = re.sub('([0-9a-zA-Z]+\/[0-9a-zA-Z]+)?#[0-9]+', self.ticketCallback, line)
+        
+        # Loki user notation
+        line = re.sub('\[(\@[a-zA-Z0-9]+)\]', self.lokiUsers, line)
         
         
         
