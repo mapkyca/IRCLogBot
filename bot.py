@@ -30,12 +30,15 @@ def logline(line, logdir):
     
     filename = time.strftime("%Y-%m-%d") + ".md"
     
-    newline = parser.parse(line)
+    try:
+        newline = parser.parse(line)
     
-    with open(logdir + "/" + filename, "a") as logfile:
-        print "[LOGGING] " + newline
-        logfile.write(newline + "\n")
-        logfile.close()
+        with open(logdir + "/" + filename, "a") as logfile:
+            print "[LOGGING] " + newline
+            logfile.write(newline + "\n")
+            logfile.close()
+    except Exception as err:
+        print "[EXCEPTION] " + str(err)
         
 
 def sig_int_handler(signal, frame):
