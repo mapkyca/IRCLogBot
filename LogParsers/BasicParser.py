@@ -43,5 +43,5 @@ class BasicParser(object):
         self.currentUser = ''
         
         # Parse out string and format appropriately    (time, username, text)
-        return "* <a id=\"%s\">%s</a> - __[%s](https://github.com/%s)__: %s" % (time.strftime("%H:%M.%S"), time.strftime("%H:%M.%S (%Z)"), user, user, text)
+        return "* <a href=\"#%s\" id=\"%s\">%s</a> - __[%s](https://github.com/%s)__: %s" % (time.strftime("%H:%M.%S"), time.strftime("%H:%M.%S"), time.strftime("%H:%M.%S (%Z)"), user, user, text)
      
